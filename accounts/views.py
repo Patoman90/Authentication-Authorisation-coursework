@@ -17,3 +17,13 @@ def logout(request):
 def login(request):
     """ Return login page """
     return render(request, 'login.html')
+
+
+def register(request):
+    """ Return register page """
+    return render(request, 'register.html')
+
+
+def profile(request):
+    """ Return profile page """
+    return render(request, 'profile.html')
