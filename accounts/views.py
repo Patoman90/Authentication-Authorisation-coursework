@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
-from accounts.forms import UserLoginForm
+from accounts.forms import UserLoginForm, UserRegistrationForm
 
 
 def index(request):
     """Returns the render index.html file"""
     return render(request, 'index.html')
+
 
 @login_required
 def logout(request):
