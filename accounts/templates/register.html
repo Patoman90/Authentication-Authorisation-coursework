@@ -6,6 +6,12 @@
 
 {% block content %}
 
-<p>If you are already registeredas a user you can login here <a href="{% url 'login' %}">Login</a>></a></p>
+<p>If you are already registered as a user you can login here <a href="{% url 'login' %}">Login</a>></a></p>
+
+<form method="POST">
+        {% csrf_token %}
+        {{login_form}}
+        <button type="submit">Register</button>
+    </form>
 
 {% endblock %}
