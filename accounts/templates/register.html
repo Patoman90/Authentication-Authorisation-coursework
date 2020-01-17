@@ -10,7 +10,7 @@
 
 <form method="POST">
         {% csrf_token %}
-        {{registration_form}}
+        {{registration_form.as_p}}
         <button type="submit">Register</button>
     </form>
 
