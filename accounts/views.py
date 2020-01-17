@@ -40,7 +40,9 @@ def login(request):
 
 def register(request):
     """ Return register page """
-    return render(request, 'register.html')
+    registration_form = UserRegistrationForm()
+    return render(request, 'register.html', {
+        "registration_form": registration_form})
 
 
 @login_required
