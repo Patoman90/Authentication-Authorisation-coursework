@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm
 
 
@@ -39,13 +40,34 @@ def login(request):
 
 
 def register(request):
-    """ Return register page """
-    registration_form = UserRegistrationForm()
+    """ Render register page """
+    if request.user.is_authenticated:
+        return redirect(reverse('index'))
+
+    if request.method == "POST":
+        registration_form = UserRegistrationForm(request.POST)
+
+        if registration_form.is_valid():
+            registration_form.save()
+
+            user = auth.authenticate(username=request.POST['username'],
+                                     passsword=request.POST['password1'])
+
+            if user:
+                auth.login(user=user, request=request)
+                messages.success(request, 'Registration successful!')
+                return redirect(reverse('index'))
+            else:
+                messages.error(request, "Unable to register your account at this time.")
+
+    else:
+        registration_form = UserRegistrationForm()
     return render(request, 'register.html', {
-        "registration_form": registration_form})
+            "registration_form": registration_form})
 
 
 @login_required
 def profile(request):
-    """ Return profile page """
-    return render(request, 'profile.html')
+    """ user profile page """
+    user = User.Objects.get(email=request.user.email)
+    return render(request, 'profile.html', {"profile": user})

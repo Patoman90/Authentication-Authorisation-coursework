@@ -2,7 +2,7 @@
 
 {% block page_title %}Registration page{% endblock %}
 
-{% block page_heading %}Register{% endblock %}
+{% block page_heading %}Register new user:{% endblock %}
 
 {% block content %}
 
@@ -12,6 +12,6 @@
         {% csrf_token %}
         {{registration_form.as_p}}
         <button type="submit">Register</button>
-    </form>
+</form>
 
 {% endblock %}
