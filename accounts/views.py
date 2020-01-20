@@ -66,7 +66,6 @@ def register(request):
             "registration_form": registration_form})
 
 
-@login_required
 def profile(request):
     """ user profile page """
     user = User.Objects.get(email=request.user.email)
